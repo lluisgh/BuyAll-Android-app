@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BuyAll</string>
+    <string name="product_name">Nom</string>
+    <string name="confirm">Confirma</string>
+    <string name="cancel">Cancel·la</string>
+        
+    <string name="choose_establishment">Escull un establiment de la llista...</string>
+   	<string name="product_new">Producte nou</string>
+   	<string name="products">Productes</string>    
+   	<string name="create_product">Crea producte</string>    
+   	<string name="create_establishment">Crea establiment</string>
+   	<string name="create_type">Crea tipus</string>    
+   	    	    
+    <string name="product_type">Escull un tipus de la llista...</string>
+    <string name="product_price">Preu</string>
+    <string name="product_brand">Marca</string>
+    <string name="list_new">Llista nova</string>        
+    <string name="list_dueDate">Comprar abans del</string>
+    <string name="add_products">Afegeix productes</string>
+    <string name="optional">opcional</string>
+    <string name="new_product">Producte nou</string>
+        
+    <string name="no_products">No hi ha productes.</string>
+    <string name="no_lists">No hi ha llistes.</string>
+    <string name="list_edit">Edita la llista</string>
+        
+   	<string-array name="units_array">
+		<item>unitat(s)</item>
+		<item>kg</item>
+		<item>g</item>		    		
+	</string-array>
+    
+    <string name="menu_insert">Crea llista</string>
+    <string name="menu_delete">Esborra</string>
+    <string name="menu_edit">Edita</string>
+        	    
+        
+        
+        
+        
+
+</resources>

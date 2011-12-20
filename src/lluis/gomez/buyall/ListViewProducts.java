@@ -1,0 +1,176 @@
+package lluis.gomez.buyall;
+
+import android.app.AlertDialog;
+import android.app.ListActivity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.EditText;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+
+public class ListViewProducts extends ListActivity{
+
+    private BuyAllDbAdapter mDbHelper;
+	
+    private Long mRowId;
+    
+	private Long mListId;
+    private String mEstablishment;
+    private String mDate;
+
+    private TextView mTitle;
+    private TextView mDateText;
+  //  private CheckBox mCheckBox;
+
+
+    private static final int INSERT_ID = Menu.FIRST;
+    private static final int DELETE_ID = Menu.FIRST + 1;
+    private static final int CHANGE_QUANTITY = Menu.FIRST + 2;
+
+    
+    @Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		mRowId = (savedInstanceState == null) ? null :
+            (Long) savedInstanceState.getSerializable(BuyAllDbAdapter.KEY_ROWID);
+        if (mRowId == null) {
+            Bundle extras = getIntent().getExtras();
+            mRowId = (extras != null) ? extras.getLong(BuyAllDbAdapter.KEY_ROWID)
+                                    : null;
+        }
+        
+        setContentView(R.layout.list_view);
+        mDbHelper = new BuyAllDbAdapter(this);
+        mDbHelper.open();
+        fillData();
+        registerForContextMenu(getListView());
+    }
+    
+    private void fillData() {
+    	Cursor c = mDbHelper.fetchListProduct(mRowId);
+    	startManagingCursor(c);
+    	    	
+    	String[] from = new String[] {BuyAllDbAdapter.KEY_PRODUCT, BuyAllDbAdapter.KEY_BRAND};
+    	int[] to = new int[] {R.id.name, R.id.text1};
+    	SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.view_product_row, c, from, to);
+    	setListAdapter(adapter);
+    	
+    	
+    	Cursor c2 = mDbHelper.fetchList(mRowId);
+    	startManagingCursor(c2);
+    	mEstablishment = c2.getString(c2.getColumnIndex("establishment"));
+    	mDate = c2.getString(c2.getColumnIndex("date"));
+    	mTitle = (TextView) findViewById(R.id.textView3);
+    	mDateText = (TextView) findViewById(R.id.textView1);
+    	mTitle.setText(mEstablishment);
+    	mDateText.setText(mDate);
+    	    	
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+       // ++count; // = count + 1; 
+        menu.add(0, INSERT_ID, 0, "Afegeix productes");
+        return true;
+    }
+    
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        switch(item.getItemId()) {
+            case INSERT_ID:
+                addProducts();
+                return true;
+        }
+
+        return super.onMenuItemSelected(featureId, item);
+    }
+    
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(0, CHANGE_QUANTITY, 0, "Canvia la quantitat");
+        menu.add(0, DELETE_ID, 0, R.string.menu_delete);
+    }
+    
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+    	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+    	switch(item.getItemId()) {
+    	/**
+    	 * Quina id Žs info.id???
+    	 */
+        	case DELETE_ID:
+                mDbHelper.deleteListProduct(info.id);
+                fillData();
+                return true;
+            case CHANGE_QUANTITY:
+                changeQuantity(info.id); // dialog + update ListProduct
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    private void changeQuantity(long id) {
+    	 final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
+
+
+ 		Context mContext = getApplicationContext();
+ 		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+ 		final View dialog = inflater.inflate(R.layout.new_dialog,
+ 		                               (ViewGroup) findViewById(R.id.layout_root));
+
+ 		alertDialog.setTitle("Canvia la quantitat");
+ 		TextView text = (TextView) dialog.findViewById(R.id.text);
+ 		text.setText("Quantitat");
+ 		final EditText edText = (EditText) dialog.findViewById(R.id.editText1);
+ 		
+ 		alertDialog.setButton("Confirma", new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int id) {
+  	        	   if (edText.length() <= 0) {
+  	        		   edText.setError("Has d'introduir una quantitat.");
+  	        	   }
+  	        	   
+  	        	   /**
+  	        	    * probably falla
+  	        	    */
+  	        	   else {
+  	        		   Cursor c = mDbHelper.fetchListProduct(id);
+  	        		 	startManagingCursor(c);
+  	        	    	String product = c.getString(c.getColumnIndex(BuyAllDbAdapter.KEY_PRODUCT));
+  	        	    	String brand = c.getString(c.getColumnIndex(BuyAllDbAdapter.KEY_BRAND));
+  	        	    	Integer bought = c.getInt(c.getColumnIndex(BuyAllDbAdapter.KEY_BOUGHT));
+  	        		   	String quantity = edText.getText().toString(); 
+  	        		   	
+  	        		   	mDbHelper.updateListProduct(id, mListId, product, brand, quantity, bought);
+  	        		   	
+  	        		   	fillData();
+  	        	   }
+ 	           }
+ 		});
+ 		alertDialog.setView(dialog);
+ 		alertDialog.show();
+    }
+    
+	private void addProducts() {
+    	Intent i = new Intent(this, Products.class);
+        i.putExtra(BuyAllDbAdapter.KEY_ROWID, mRowId);
+        startActivity(i);
+	}
+
+    
+}
