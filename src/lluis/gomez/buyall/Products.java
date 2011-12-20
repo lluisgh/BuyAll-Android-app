@@ -1,30 +1,19 @@
 package lluis.gomez.buyall;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
-public class Products extends ListActivity {
+public class Products extends ListTemplate {
 	private static final int ACTIVITY_CREATE=0;
     private static final int ACTIVITY_EDIT=1;
 
-    private static final int INSERT_ID = Menu.FIRST;
-    private static final int DELETE_ID = Menu.FIRST + 1;
-    private static final int EDIT_ID = Menu.FIRST + 2;
     
-    protected long mListId;
-    protected BuyAllDbAdapter mDbHelper;
+    private long mListId;
     	
 	@Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -52,17 +41,7 @@ public class Products extends ListActivity {
 
     }
 	
-    @Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-        setContentView(R.layout.products_list);
-        mDbHelper = new BuyAllDbAdapter(this);
-        mDbHelper.open();
-        
-        fillData();
-        registerForContextMenu(getListView());
-    }
-
+	@Override
     protected void fillData() {
     	Cursor productsCursor = mDbHelper.fetchAllProducts();
     	startManagingCursor(productsCursor);
@@ -75,60 +54,31 @@ public class Products extends ListActivity {
     	setListAdapter(products);
     }
     
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-       // ++count; // = count + 1; 
-        menu.add(0, INSERT_ID, 0, "Crea producte");
-        return true;
-    }
     
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        switch(item.getItemId()) {
-            case INSERT_ID:
-                createProduct();
-                return true;
-        }
-
-        return super.onMenuItemSelected(featureId, item);
-    }
-    
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, EDIT_ID, 0, "Edita");
-        menu.add(0, DELETE_ID, 0, "Esborra");
-
-    }
-    
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-    	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-    	switch(item.getItemId()) {
-        	case DELETE_ID:
-                mDbHelper.deleteProduct(info.id);
-                fillData();
-                return true;
-            case EDIT_ID:
-                editProduct(info.id);
-                fillData();
-                return true;
-        }
-        return super.onContextItemSelected(item);
-    }
-    
-    private void createProduct() {
+   
+	@Override
+	protected void create() {
     	Intent i = new Intent(this, ProductEdit.class);
     	startActivityForResult(i, ACTIVITY_CREATE);
-    }
-    
-    private void editProduct(long id) {
-    	Intent i = new Intent(this, ProductEdit.class);
+		
+	}
+
+	@Override
+	protected void edit(long id) {
+		Intent i = new Intent(this, ProductEdit.class);
         i.putExtra(BuyAllDbAdapter.KEY_ROWID, id);
-        startActivityForResult(i, ACTIVITY_EDIT);
-    }
+        startActivityForResult(i, ACTIVITY_EDIT);		
+	}
+
+	@Override
+	protected String getElementName() {
+		return "Product";
+	}
+
+	@Override
+	protected void setContent() {
+        setContentView(R.layout.products_list);		
+	}
     
    /* 
     @Override
