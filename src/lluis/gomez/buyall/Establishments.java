@@ -40,13 +40,8 @@ public class Establishments extends ListTemplate {
 		
 		alertDialog.setButton("Confirma", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
- 	        	   if (edText.length() <= 0) {
- 	        		   edText.setError("Has d'introduir un nom.");
- 	        	   }
- 	        	   else {
- 	        		   	String establishment = edText.getText().toString(); 
- 	        		   	mDbHelper.updateEstablishment(id, establishment);
- 	        	   }
+ 	        	   if (edText.length() <= 0) edText.setError("Has d'introduir un nom.");
+ 	        	   else mDbHelper.updateEstablishment(id, edText.getText().toString());
 	           }
 		});
 		alertDialog.setView(dialog);
@@ -68,7 +63,7 @@ public class Establishments extends ListTemplate {
 
 	@Override
 	protected String getElementName() {
-		return "Establishment";
+		return "Establiment";
 	}
 
 	@Override

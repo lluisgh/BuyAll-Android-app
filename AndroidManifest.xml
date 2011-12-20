@@ -21,6 +21,7 @@
         <activity android:name=".ProductEdit" />
         <activity android:name=".AddProductList" />
         <activity android:name=".Establishments" />
+        <activity android:name=".Types" />
         
         
     </application>

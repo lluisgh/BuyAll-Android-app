@@ -72,7 +72,7 @@ public class Products extends ListTemplate {
 
 	@Override
 	protected String getElementName() {
-		return "Product";
+		return "Producte";
 	}
 
 	@Override
