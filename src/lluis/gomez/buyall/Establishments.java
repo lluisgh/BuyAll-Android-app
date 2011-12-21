@@ -12,18 +12,21 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 public class Establishments extends ListTemplate {    
-    
+    private long mRowId;
    
 	@Override
 	protected void create() {
-    	edit(mDbHelper.createEstablishment(""));	
+		mRowId = mDbHelper.createEstablishment("");
+    	edit(mRowId);	
 	}
 
 	@Override
-	protected void edit(long id) {
+	protected void edit(long rowid) {
 		final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
 
-    	Cursor cursor = mDbHelper.fetchEstablishment(id);
+		mRowId = rowid;
+		
+    	Cursor cursor = mDbHelper.fetchEstablishment(mRowId);
     	startManagingCursor(cursor);
     	
 
@@ -41,7 +44,10 @@ public class Establishments extends ListTemplate {
 		alertDialog.setButton("Confirma", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
  	        	   if (edText.length() <= 0) edText.setError("Has d'introduir un nom.");
- 	        	   else mDbHelper.updateEstablishment(id, edText.getText().toString());
+ 	        	   else {
+ 	        		   mDbHelper.updateEstablishment(mRowId, edText.getText().toString());
+ 	        		   fillData();
+ 	        	   }
 	           }
 		});
 		alertDialog.setView(dialog);

@@ -14,16 +14,20 @@ import android.widget.TextView;
 
 public class Types extends ListTemplate {
 
+	private long mRowId;
+	
 	@Override
 	protected void create() {
-    	edit(mDbHelper.createType(""));			
+    	mRowId = mDbHelper.createType("");
+		edit(mRowId);			
 	}
 
 	@Override
 	protected void edit(long id) {
 		final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
 
-    	Cursor cursor = mDbHelper.fetchType(id);
+		mRowId = id;
+    	Cursor cursor = mDbHelper.fetchType(mRowId);
     	startManagingCursor(cursor);
     	
 
@@ -41,7 +45,10 @@ public class Types extends ListTemplate {
 		alertDialog.setButton("Confirma", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
  	        	   if (edText.length() <= 0) edText.setError("Has d'introduir un nom.");
- 	        	   else mDbHelper.updateType(id, edText.getText().toString());
+ 	        	   else {
+ 	        		   mDbHelper.updateType(mRowId, edText.getText().toString());
+ 	        		   fillData();
+ 	        	   }
 	           }
 		});
 		alertDialog.setView(dialog);

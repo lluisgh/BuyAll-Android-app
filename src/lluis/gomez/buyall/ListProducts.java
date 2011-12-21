@@ -47,7 +47,6 @@ public class ListProducts extends ListTemplate {
     
     @Override
     protected void fillData() {
-    	if (mDbHelper == null) finish();
     	Cursor c = mDbHelper.fetchListProduct(mRowId);
     	startManagingCursor(c);
     	    	
