@@ -108,6 +108,7 @@ public class BuyAllDbAdapter {
 	 */
 	public BuyAllDbAdapter(Context ctx) {
 		mCtx = ctx;
+		open();
 	}
 	
 	/**

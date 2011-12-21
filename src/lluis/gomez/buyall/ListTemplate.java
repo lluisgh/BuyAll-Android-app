@@ -24,7 +24,6 @@ public abstract class ListTemplate extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContent();
 		mDbHelper = new BuyAllDbAdapter(this);
-        mDbHelper.open();
         fillData();
 		registerForContextMenu(getListView());
 	}

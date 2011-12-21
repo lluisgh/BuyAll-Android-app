@@ -17,9 +17,8 @@
         </activity>
         <activity android:name=".ListEdit" />
         <activity android:name=".Products" />
-        <activity android:name=".ListViewProducts" />
+        <activity android:name=".ListProducts" />
         <activity android:name=".ProductEdit" />
-        <activity android:name=".AddProductList" />
         <activity android:name=".Establishments" />
         <activity android:name=".Types" />
         

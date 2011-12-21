@@ -1,25 +1,19 @@
 package lluis.gomez.buyall;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
-public class ListViewProducts extends ListActivity{
+public class ListProducts extends ListTemplate {
 
     private BuyAllDbAdapter mDbHelper;
 	
@@ -34,14 +28,11 @@ public class ListViewProducts extends ListActivity{
   //  private CheckBox mCheckBox;
 
 
-    private static final int INSERT_ID = Menu.FIRST;
-    private static final int DELETE_ID = Menu.FIRST + 1;
-    private static final int CHANGE_QUANTITY = Menu.FIRST + 2;
+ //   private static final int INSERT_ID = Menu.FIRST;
 
     
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 		
 		mRowId = (savedInstanceState == null) ? null :
             (Long) savedInstanceState.getSerializable(BuyAllDbAdapter.KEY_ROWID);
@@ -51,14 +42,12 @@ public class ListViewProducts extends ListActivity{
                                     : null;
         }
         
-        setContentView(R.layout.list_view);
-        mDbHelper = new BuyAllDbAdapter(this);
-        mDbHelper.open();
-        fillData();
-        registerForContextMenu(getListView());
+		super.onCreate(savedInstanceState);
     }
     
-    private void fillData() {
+    @Override
+    protected void fillData() {
+    	if (mDbHelper == null) finish();
     	Cursor c = mDbHelper.fetchListProduct(mRowId);
     	startManagingCursor(c);
     	    	
@@ -78,7 +67,7 @@ public class ListViewProducts extends ListActivity{
     	mDateText.setText(mDate);
     	    	
     }
-    
+  /*  
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -86,43 +75,7 @@ public class ListViewProducts extends ListActivity{
         menu.add(0, INSERT_ID, 0, "Afegeix productes");
         return true;
     }
-    
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        switch(item.getItemId()) {
-            case INSERT_ID:
-                addProducts();
-                return true;
-        }
-
-        return super.onMenuItemSelected(featureId, item);
-    }
-    
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, CHANGE_QUANTITY, 0, "Canvia la quantitat");
-        menu.add(0, DELETE_ID, 0, R.string.menu_delete);
-    }
-    
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-    	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-    	switch(item.getItemId()) {
-    	/**
-    	 * Quina id Žs info.id???
-    	 */
-        	case DELETE_ID:
-                mDbHelper.deleteListProduct(info.id);
-                fillData();
-                return true;
-            case CHANGE_QUANTITY:
-                changeQuantity(info.id); // dialog + update ListProduct
-                return true;
-        }
-        return super.onContextItemSelected(item);
-    }
+    */
 
     private void changeQuantity(long id) {
     	 final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
@@ -166,10 +119,36 @@ public class ListViewProducts extends ListActivity{
  		alertDialog.show();
     }
     
+    /* 
 	private void addProducts() {
     	Intent i = new Intent(this, Products.class);
         i.putExtra(BuyAllDbAdapter.KEY_ROWID, mRowId);
         startActivity(i);
+	}
+	*/
+
+	@Override
+	protected void create() {
+    	Intent i = new Intent(this, Products.class);
+        i.putExtra(BuyAllDbAdapter.KEY_ROWID, mRowId);
+        startActivity(i);		
+	}
+
+	@Override
+	protected void edit(long id) {
+		changeQuantity(id);
+	}
+
+
+
+	@Override
+	protected String getElementName() {
+		return "Producte";
+	}
+
+	@Override
+	protected void setContent() {
+        setContentView(R.layout.list_view);		
 	}
 
     

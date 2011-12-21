@@ -37,7 +37,6 @@ public class BuyAll extends ListActivity {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.lists_list);
         mDbHelper = new BuyAllDbAdapter(this);
-        mDbHelper.open();
         fillData();
         registerForContextMenu(getListView());
     }
@@ -131,7 +130,7 @@ public class BuyAll extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Intent i = new Intent(this, ListViewProducts.class);
+        Intent i = new Intent(this, ListProducts.class);
         i.putExtra(BuyAllDbAdapter.KEY_ROWID, id);
         startActivity(i);
 

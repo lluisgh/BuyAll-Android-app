@@ -38,7 +38,6 @@ public class ProductEdit extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		mDbHelper = new BuyAllDbAdapter(this);
-		mDbHelper.open();
 
 		setContentView(R.layout.product_edit);
 		

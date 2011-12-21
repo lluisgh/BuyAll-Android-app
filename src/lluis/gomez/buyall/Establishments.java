@@ -32,7 +32,7 @@ public class Establishments extends ListTemplate {
 		final View dialog = inflater.inflate(R.layout.new_dialog,
 		                               (ViewGroup) findViewById(R.id.layout_root));
 
-		alertDialog.setTitle("Crea establiment");
+		alertDialog.setTitle("Edita establiment");
 		TextView text = (TextView) dialog.findViewById(R.id.text);
 		text.setText("Nom");
 		final EditText edText = (EditText) dialog.findViewById(R.id.editText1);

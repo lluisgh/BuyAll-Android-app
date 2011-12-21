@@ -41,7 +41,6 @@ public class ListEdit extends Activity {
 		 * Accés a la BD
 		 */
 		mDbHelper = new BuyAllDbAdapter(this);
-		mDbHelper.open();
 		
 		/**
 		 * S'obté el layout
@@ -108,7 +107,7 @@ public class ListEdit extends Activity {
 		} else {
 			mDbHelper.updateList(mRowId, mEstablishment, mDay, mMonth, mYear, mDateText);
 		}
-		Intent i = new Intent(this, ListViewProducts.class);
+		Intent i = new Intent(this, ListProducts.class);
         i.putExtra(BuyAllDbAdapter.KEY_ROWID, mRowId);
         startActivity(i);
 	}

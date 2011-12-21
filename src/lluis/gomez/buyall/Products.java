@@ -1,7 +1,5 @@
 package lluis.gomez.buyall;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.view.View;
@@ -13,12 +11,13 @@ public class Products extends ListTemplate {
     private static final int ACTIVITY_EDIT=1;
 
     
-    private long mListId;
     	
 	@Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        final long productId = id;
+       
+        
+        /*final long productId = id;
         
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
 
@@ -38,6 +37,8 @@ public class Products extends ListTemplate {
 		});
 		//alertDialog.setView(dialog);
 		alertDialog.show();
+		*/
+        edit(id);
 
     }
 	
@@ -67,7 +68,44 @@ public class Products extends ListTemplate {
 	protected void edit(long id) {
 		Intent i = new Intent(this, ProductEdit.class);
         i.putExtra(BuyAllDbAdapter.KEY_ROWID, id);
-        startActivityForResult(i, ACTIVITY_EDIT);		
+        startActivityForResult(i, ACTIVITY_EDIT);
+    
+		/*
+    	 * FrameLayout f1 = (FrameLayout) findViewById(R.android.id.custom);
+    	 * f1.addView(myView, new LayoutParams(MATCH_PARENT, WRAP_CONTENT));
+    	 * 
+    	 */
+    	
+/*    	
+    	final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
+
+    	Cursor cursor = mDbHelper.fetchProduct(id);
+    	startManagingCursor(cursor);    	
+    	
+		Context mContext = getApplicationContext();
+		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+		final View dialog = inflater.inflate(R.layout.new_dialog,
+		                               (ViewGroup) findViewById(R.id.layout_root));
+
+		alertDialog.setTitle("Edita producte");
+		TextView text = (TextView) dialog.findViewById(R.id.text);
+		text.setText("Nom");
+		final EditText name = (EditText) dialog.findViewById(R.id.editText1);
+		name.setText(cursor.getString(cursor.getColumnIndex(BuyAllDbAdapter.KEY_NAME)));
+		final EditText brand = (EditText) dialog.findViewById(R.id.editText2);
+		
+		final EditText type = (EditText) dialog.findViewById(R.id.editText3);
+		
+		
+		alertDialog.setButton("Confirma", new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+ 	        	   if (name.length() <= 0) name.setError("Has d'introduir un nom.");
+ 	        	   else mDbHelper.updateEstablishment(id, name.getText().toString());
+	           }
+		});
+		alertDialog.setView(dialog);
+		alertDialog.show();		
+	*/
 	}
 
 	@Override
