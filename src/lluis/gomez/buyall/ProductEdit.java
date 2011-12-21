@@ -190,4 +190,11 @@ public class ProductEdit extends Activity {
 			mDbHelper.updateProduct(mRowId, mName, mBrand, mType);
 		}
 	}
+	
+	 @Override
+	 protected void onDestroy() {
+		 mDbHelper.close();
+		 super.onDestroy();
+	 }
+
 }

@@ -181,8 +181,16 @@ public class ListEdit extends Activity {
 			mDateText = Integer.toString(mDay) + '/' + Integer.toString(mMonth + 1) + '/' + Integer.toString(mYear);
 			mDatePicker.updateDate(mYear, mMonth, mDay);//(mYear, mMonth, mDay, dateSetListener);
 		}
+		
 	}
 	
+	@Override
+ 	protected void onDestroy() {
+	 	mDbHelper.close();
+	 	super.onDestroy();
+ 	}
+
+	 
 	@Override
 	protected void onPause() {
 		super.onPause();

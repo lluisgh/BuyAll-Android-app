@@ -41,7 +41,13 @@ public class BuyAll extends ListActivity {
         registerForContextMenu(getListView());
     }
     
-    private void fillData() {
+    @Override
+	protected void onDestroy() {
+    	mDbHelper.close();
+		super.onDestroy();
+	}
+
+	private void fillData() {
     	Cursor listsCursor = mDbHelper.fetchAllLists();
     	startManagingCursor(listsCursor);
     	

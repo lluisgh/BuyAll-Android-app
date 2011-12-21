@@ -70,6 +70,7 @@ public class Establishments extends ListTemplate {
 	protected void setContent() {
 		setContentView(R.layout.name_list);
 	}
+	
     
     
 }

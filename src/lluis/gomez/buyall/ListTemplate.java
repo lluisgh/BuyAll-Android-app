@@ -86,6 +86,11 @@ public abstract class ListTemplate extends ListActivity {
 
     protected abstract void edit(long id);
     
-	
+	 @Override
+	 protected void onDestroy() {
+		 mDbHelper.close();
+		 super.onDestroy();
+	 }
+
 	
 }
