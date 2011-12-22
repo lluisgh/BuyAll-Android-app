@@ -33,6 +33,7 @@ public class ListProducts extends ListTemplate {
     
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		mRowId = (savedInstanceState == null) ? null :
             (Long) savedInstanceState.getSerializable(BuyAllDbAdapter.KEY_ROWID);
         if (mRowId == null) {
@@ -40,6 +41,7 @@ public class ListProducts extends ListTemplate {
             mRowId = (extras != null) ? extras.getLong(BuyAllDbAdapter.KEY_ROWID)
                                     : null;
         }
+        
 		super.onCreate(savedInstanceState);
     }
     
@@ -146,11 +148,6 @@ public class ListProducts extends ListTemplate {
 	@Override
 	protected void setContent() {
         setContentView(R.layout.list_view);		
-	}
-
-	@Override
-	protected void initializeDbHelper() {
-		mDbHelper = new BuyAllDbAdapter(this);		
 	}
 
     
