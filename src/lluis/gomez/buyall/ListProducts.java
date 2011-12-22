@@ -52,7 +52,7 @@ public class ListProducts extends ListTemplate {
     	int[] to = new int[] {R.id.name, R.id.text1};
     	SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.view_product_row, c, from, to);
     	setListAdapter(adapter);
-    	c.close();
+    	
     	
     	Cursor c2 = mDbHelper.fetchList(mRowId);
     	startManagingCursor(c2);
@@ -62,7 +62,6 @@ public class ListProducts extends ListTemplate {
     	mDateText = (TextView) findViewById(R.id.textView1);
     	mTitle.setText(mEstablishment);
     	mDateText.setText(mDate);
-    	c2.close();
     	    	
     }
   /*  
@@ -108,7 +107,7 @@ public class ListProducts extends ListTemplate {
   	        		   	String quantity = edText.getText().toString(); 
   	        		   	
   	        		   	mDbHelper.updateListProduct(id, mListId, product, brand, quantity, bought);
-  	        		   	c.close();
+  	        		   	
   	        		   	fillData();
   	        	   }
  	           }

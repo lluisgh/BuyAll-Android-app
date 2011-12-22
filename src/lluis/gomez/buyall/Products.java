@@ -52,7 +52,6 @@ public class Products extends ListTemplate {
     	int[] to = new int[]{R.id.text1, R.id.text2, R.id.text3};
     	SimpleCursorAdapter products = new SimpleCursorAdapter(this, R.layout.select_product_row, productsCursor, from, to);
     	setListAdapter(products);
-    	productsCursor.close();
     }
     
     

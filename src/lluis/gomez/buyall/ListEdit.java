@@ -60,7 +60,6 @@ public class ListEdit extends Activity {
 					int position, long id) {
 				Cursor	c = (Cursor) mEstablishmentSpinner.getSelectedItem();
 				mEstablishment = c.getString(c.getColumnIndex("name"));
-				c.close();
 			}
 
 			@Override
@@ -165,7 +164,7 @@ public class ListEdit extends Activity {
   			
   			mArray.add(c.getString(1));
   		}
-		c.close();
+		
 		if (mRowId != null) {	
 			
 			Cursor list = mDbHelper.fetchList(mRowId);	
@@ -181,7 +180,6 @@ public class ListEdit extends Activity {
 			
 			mDateText = Integer.toString(mDay) + '/' + Integer.toString(mMonth + 1) + '/' + Integer.toString(mYear);
 			mDatePicker.updateDate(mYear, mMonth, mDay);//(mYear, mMonth, mDay, dateSetListener);
-			list.close();
 		}
 		
 	}

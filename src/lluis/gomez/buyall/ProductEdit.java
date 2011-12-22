@@ -54,8 +54,7 @@ public class ProductEdit extends Activity {
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
 					int position, long id) {
 					Cursor	c = (Cursor) mTypeSpinner.getSelectedItem();
-					mType = c.getString(c.getColumnIndex("name"));	
-					c.close();
+					mType = c.getString(c.getColumnIndex("name"));				
 			}
 
 			@Override
@@ -145,21 +144,32 @@ public class ProductEdit extends Activity {
   			
   			mArray.add(c.getString(1));
   		}
+<<<<<<< HEAD
 		if (mType != null) mTypeSpinner.setSelection(mArray.indexOf(mType) + 1);
   		//c.close();
 	}
 	
 	private void populateFields() {
 		populateTypeSpinner();
+=======
+		
+>>>>>>> parent of 4724ffb... cursors.close()
 		if (mRowId != null) {	
 			Cursor product = mDbHelper.fetchProduct(mRowId);
 			startManagingCursor(product);
 			mName = product.getString(product.getColumnIndex("name"));
 			mBrand = product.getString(product.getColumnIndex("brand"));
 			if (mType == null) mType = product.getString(product.getColumnIndex("type"));
+<<<<<<< HEAD
 			int index = mArray.indexOf(mType);
 			mTypeSpinner.setSelection(index + 1);
 			//product.close();
+=======
+			
+			int index = mArray.indexOf(mType);
+			mTypeSpinner.setSelection(index + 1);
+			
+>>>>>>> parent of 4724ffb... cursors.close()
 		}
 		
 	}
