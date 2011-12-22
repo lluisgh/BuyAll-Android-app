@@ -10,7 +10,6 @@ public class Products extends ListTemplate {
 	private static final int ACTIVITY_CREATE=0;
     private static final int ACTIVITY_EDIT=1;
 
-    
     	
 	@Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -116,6 +115,11 @@ public class Products extends ListTemplate {
 	@Override
 	protected void setContent() {
         setContentView(R.layout.products_list);
+	}
+
+	@Override
+	protected void initializeDbHelper() {
+		mDbHelper = new BuyAllDbAdapter(this);		
 	}
     
    /* 

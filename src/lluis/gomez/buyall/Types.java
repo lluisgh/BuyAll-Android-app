@@ -83,4 +83,9 @@ public class Types extends ListTemplate {
 
 	}
 
+	@Override
+	protected void initializeDbHelper() {
+		mDbHelper = new BuyAllDbAdapter(this);		
+	}
+
 }

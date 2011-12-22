@@ -81,6 +81,11 @@ public class Establishments extends ListTemplate {
 		title.setText("Establiments");
 
 	}
+
+	@Override
+	protected void initializeDbHelper() {
+		mDbHelper = new BuyAllDbAdapter(this);		
+	}
 	
     
     

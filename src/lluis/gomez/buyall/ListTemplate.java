@@ -23,12 +23,14 @@ public abstract class ListTemplate extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContent();
-		mDbHelper = new BuyAllDbAdapter(this);
+		initializeDbHelper();
+		//mDbHelper = new BuyAllDbAdapter(this);
         fillData();
 		registerForContextMenu(getListView());
 	}
 
 	protected abstract void setContent();
+	protected abstract void initializeDbHelper();
 	protected abstract void fillData();
 
 	
