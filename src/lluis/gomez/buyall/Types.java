@@ -75,7 +75,12 @@ public class Types extends ListTemplate {
 
 	@Override
 	protected void setContent() {
-		setContentView(R.layout.name_list);		
+		setContentView(R.layout.name_list);
+		TextView noElements = (TextView) findViewById(android.R.id.empty);
+		noElements.setText("No hi ha tipus.");
+		TextView title = (TextView) findViewById(R.id.title);
+		title.setText("Tipus");
+
 	}
 
 }

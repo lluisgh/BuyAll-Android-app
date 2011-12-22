@@ -3,9 +3,19 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 		<ListView
         android:id="@+id/android:list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
-    </ListView>    
+    </ListView>
+    <TextView android:id="@+id/android:empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

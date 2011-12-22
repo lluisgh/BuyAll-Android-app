@@ -115,7 +115,7 @@ public class Products extends ListTemplate {
 
 	@Override
 	protected void setContent() {
-        setContentView(R.layout.products_list);		
+        setContentView(R.layout.products_list);
 	}
     
    /* 

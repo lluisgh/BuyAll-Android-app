@@ -75,6 +75,11 @@ public class Establishments extends ListTemplate {
 	@Override
 	protected void setContent() {
 		setContentView(R.layout.name_list);
+		TextView noElements = (TextView) findViewById(android.R.id.empty);
+		noElements.setText("No hi ha establiments.");
+		TextView title = (TextView) findViewById(R.id.title);
+		title.setText("Establiments");
+
 	}
 	
     
