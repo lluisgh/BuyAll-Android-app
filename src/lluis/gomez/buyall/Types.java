@@ -76,7 +76,7 @@ public class Types extends ListTemplate {
 	}
 
 	@Override
-	protected String getOperation() {
+	protected String getInsertOperation() {
 		return "Crea un tipus";
 	}
 
@@ -94,6 +94,16 @@ public class Types extends ListTemplate {
 	protected void onDestroy() {
 		 mDbHelper.close();
 		 super.onDestroy();
+	}
+
+	@Override
+	protected void delete(long rowId) {
+		mDbHelper.deleteType(rowId);
+	}
+
+	@Override
+	protected String getDeleteOperation() {
+		return "Segur que vols esborrar aquest tipus?";
 	}
 
 }

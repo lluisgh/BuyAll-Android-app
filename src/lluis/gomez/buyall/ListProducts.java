@@ -136,7 +136,7 @@ public class ListProducts extends ListTemplate {
 
 
 	@Override
-	protected String getOperation() {
+	protected String getInsertOperation() {
 		return "Afegeix un producte";
 	}
 
@@ -154,6 +154,16 @@ public class ListProducts extends ListTemplate {
 	protected void onDestroy() {
 		 mDbHelper.close();
 		 super.onDestroy();
+	}
+
+	@Override
+	protected void delete(long rowId) {
+		mDbHelper.deleteListProduct(rowId);
+	}
+
+	@Override
+	protected String getDeleteOperation() {
+		return "Segur que vols esborrar aquest product de la llista?";
 	}
 
     

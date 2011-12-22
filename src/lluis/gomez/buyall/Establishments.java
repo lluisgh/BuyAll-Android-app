@@ -12,9 +12,7 @@ import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-public class Establishments extends ListTemplate {    
-    private long mRowId;
-   
+public class Establishments extends ListTemplate {       
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +74,7 @@ public class Establishments extends ListTemplate {
 	}
 
 	@Override
-	protected String getOperation() {
+	protected String getInsertOperation() {
 		return "Crea un establiment";
 	}
 
@@ -94,6 +92,16 @@ public class Establishments extends ListTemplate {
 	protected void onDestroy() {
 		 mDbHelper.close();
 		 super.onDestroy();
+	}
+
+	@Override
+	protected void delete(long rowId) {
+		mDbHelper.deleteEstablishment(rowId);
+	}
+
+	@Override
+	protected String getDeleteOperation() {
+		return "Segur que vols esborrar aquest establiment?";
 	}
 	
     
