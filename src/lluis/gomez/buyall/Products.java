@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.SimpleCursorAdapter;
 
 public class Products extends ListTemplate {
+	
 	private static final int ACTIVITY_CREATE=0;
     private static final int ACTIVITY_EDIT=1;
 
@@ -40,9 +41,9 @@ public class Products extends ListTemplate {
 	}
 
 	@Override
-	protected void edit(long id) {
+	protected void edit() {
 		Intent i = new Intent(this, ProductEdit.class);
-        i.putExtra(BuyAllDbAdapter.KEY_ROWID, id);
+        i.putExtra(BuyAllDbAdapter.KEY_ROWID, mRowId);
         startActivityForResult(i, ACTIVITY_EDIT);
     
 		/*
@@ -102,8 +103,8 @@ public class Products extends ListTemplate {
 
 
 	@Override
-	protected void delete(long rowId) {
-		mDbHelper.deleteProduct(rowId);
+	protected void delete() {
+		mDbHelper.deleteProduct(mRowId);
 	}
 
 

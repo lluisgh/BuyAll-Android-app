@@ -23,14 +23,12 @@ public class Establishments extends ListTemplate {
 	@Override
 	protected void create() {
 		mRowId = mDbHelper.createEstablishment("");
-    	edit(mRowId);	
+    	edit();	
 	}
 
 	@Override
-	protected void edit(long rowid) {
+	protected void edit() {
 		final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
-
-		mRowId = rowid;
 		
     	Cursor cursor = mDbHelper.fetchEstablishment(mRowId);
     	startManagingCursor(cursor);
@@ -95,8 +93,8 @@ public class Establishments extends ListTemplate {
 	}
 
 	@Override
-	protected void delete(long rowId) {
-		mDbHelper.deleteEstablishment(rowId);
+	protected void delete() {
+		mDbHelper.deleteEstablishment(mRowId);
 	}
 
 	@Override

@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 
 public class Types extends ListTemplate {
-
-	private long mRowId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +24,13 @@ public class Types extends ListTemplate {
 	@Override
 	protected void create() {
     	mRowId = mDbHelper.createType("");
-		edit(mRowId);			
+		edit();			
 	}
 
 	@Override
-	protected void edit(long id) {
+	protected void edit() {
 		final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
 
-		mRowId = id;
     	Cursor cursor = mDbHelper.fetchType(mRowId);
     	startManagingCursor(cursor);
     	
@@ -97,8 +94,8 @@ public class Types extends ListTemplate {
 	}
 
 	@Override
-	protected void delete(long rowId) {
-		mDbHelper.deleteType(rowId);
+	protected void delete() {
+		mDbHelper.deleteType(mRowId);
 	}
 
 	@Override

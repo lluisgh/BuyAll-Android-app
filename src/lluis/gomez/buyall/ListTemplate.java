@@ -2,15 +2,12 @@ package lluis.gomez.buyall;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -23,7 +20,9 @@ public abstract class ListTemplate extends ListActivity {
 
     
 	protected BuyAllDbAdapter mDbHelper;
-	//protected long mRowId;
+	protected Long mRowId;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,25 +69,27 @@ public abstract class ListTemplate extends ListActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
     	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+    	mRowId = info.id;
     	switch(item.getItemId()) {
         	case DELETE_ID:
-                deleteElement(info.id);
-                fillData();
+                deleteElement();
                 return true;
             case EDIT_ID:
-                edit(info.id);
+                edit();
                 return true;
         }
         return super.onContextItemSelected(item);
     }
     
-    private void deleteElement(long rowId) {
+    private void deleteElement() {
 		final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
 		alertDialog.setTitle("Confirmaci—");
 		alertDialog.setMessage(getDeleteOperation());
 		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "S’", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
-	        	  delete(rowId);
+	        	  delete();
+	              fillData();
+
 	           }
 		});
 		alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
@@ -100,15 +101,16 @@ public abstract class ListTemplate extends ListActivity {
     }
     
     protected abstract String getDeleteOperation();
-    protected abstract void delete(long rowId);
+    protected abstract void delete();
     
 	@Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        edit(id);
+        mRowId =  id;
+        edit();
 	}
 	
-    protected abstract void edit(long id);
+    protected abstract void edit();
     
 	/*
     @Override

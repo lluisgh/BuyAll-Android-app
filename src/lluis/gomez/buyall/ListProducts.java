@@ -18,7 +18,6 @@ public class ListProducts extends ListTemplate {
 
     private BuyAllDbAdapter mDbHelper;
 	
-    private Long mRowId;
     
 	private Long mListId;
     private String mEstablishment;
@@ -71,7 +70,7 @@ public class ListProducts extends ListTemplate {
    
     
 
-    private void changeQuantity(long id) {
+    private void changeQuantity() {
     	 final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
 
 
@@ -103,7 +102,7 @@ public class ListProducts extends ListTemplate {
   	        	    	Integer bought = c.getInt(c.getColumnIndex(BuyAllDbAdapter.KEY_BOUGHT));
   	        		   	String quantity = edText.getText().toString(); 
   	        		   	
-  	        		   	mDbHelper.updateListProduct(id, mListId, product, brand, quantity, bought);
+  	        		   	mDbHelper.updateListProduct(mRowId, mListId, product, brand, quantity, bought);
   	        		   	
   	        		   	fillData();
   	        	   }
@@ -129,8 +128,8 @@ public class ListProducts extends ListTemplate {
 	}
 
 	@Override
-	protected void edit(long id) {
-		changeQuantity(id);
+	protected void edit() {
+		changeQuantity();
 	}
 
 
@@ -157,8 +156,8 @@ public class ListProducts extends ListTemplate {
 	}
 
 	@Override
-	protected void delete(long rowId) {
-		mDbHelper.deleteListProduct(rowId);
+	protected void delete() {
+		mDbHelper.deleteListProduct(mRowId);
 	}
 
 	@Override
