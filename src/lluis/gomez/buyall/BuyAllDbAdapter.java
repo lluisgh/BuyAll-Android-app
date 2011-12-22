@@ -43,7 +43,7 @@ public class BuyAllDbAdapter {
 	
 	private static final String DATABASE_CREATE_PRODUCTS = 
 		"create table products (_id integer primary key autoincrement, "
-		+ "name text, brand text, type string)";
+		+ "name text, brand text, type text)";
 		
 	/**
 	 * quantity és un String/text perquè serà el float d'un camp de text

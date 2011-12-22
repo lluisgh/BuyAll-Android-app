@@ -57,6 +57,7 @@ public class BuyAll extends ListActivity {
     	int[] to = new int[]{R.id.text1, R.id.text2};
     	SimpleCursorAdapter lists = new SimpleCursorAdapter(this, R.layout.lists_row, listsCursor, from, to);
     	setListAdapter(lists);
+    	listsCursor.close();
     }
     
     @Override

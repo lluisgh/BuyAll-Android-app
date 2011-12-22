@@ -42,6 +42,8 @@ public class Types extends ListTemplate {
 		final EditText edText = (EditText) dialog.findViewById(R.id.editText1);
 		edText.setText(cursor.getString(cursor.getColumnIndex(BuyAllDbAdapter.KEY_NAME)));
 		
+		cursor.close();
+		
 		alertDialog.setButton("Confirma", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
  	        	   if (edText.length() <= 0) edText.setError("Has d'introduir un nom.");
@@ -64,7 +66,8 @@ public class Types extends ListTemplate {
     	
     	int[] to = new int[]{R.id.text1};
     	SimpleCursorAdapter lists = new SimpleCursorAdapter(this, R.layout.lists_row, listsCursor, from, to);
-    	setListAdapter(lists);		
+    	setListAdapter(lists);	
+    	listsCursor.close();
 		
 	}
 
