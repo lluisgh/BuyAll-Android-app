@@ -149,7 +149,9 @@ public class ProductEdit extends Activity {
 			Cursor product = mDbHelper.fetchProduct(mRowId);
 			startManagingCursor(product);
 			mName = product.getString(product.getColumnIndex("name"));
+			mNameText.setText(mName);
 			mBrand = product.getString(product.getColumnIndex("brand"));
+			mBrandText.setText(mBrand);
 			if (mType == null) mType = product.getString(product.getColumnIndex("type"));
 			
 			int index = mArray.indexOf(mType);

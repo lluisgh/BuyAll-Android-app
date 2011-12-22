@@ -269,7 +269,7 @@ public class BuyAllDbAdapter {
 	 * @return cursor sobre els productes de la llista listId
 	 */
 	public Cursor fetchProductsOf(String listId) {
-		return mDb.query(DATABASE_TABLE_LIST_PRODUCT, new String[] {KEY_PRODUCT, KEY_BRAND, KEY_QUANTITY, KEY_BOUGHT}, KEY_LIST + "=" + listId, null, null, null, null);
+		return mDb.query(DATABASE_TABLE_LIST_PRODUCT, new String[] {KEY_PRODUCT, KEY_BRAND, KEY_TYPE, KEY_QUANTITY, KEY_BOUGHT}, KEY_LIST + "=" + listId, null, null, null, null);
 	}
 	
 	public Cursor fetchList(long rowId) throws SQLException {
@@ -316,7 +316,7 @@ public class BuyAllDbAdapter {
 		Cursor mCursor =
 
             mDb.query(true, DATABASE_TABLE_PRODUCTS, new String[] {KEY_ROWID,
-                    KEY_NAME, KEY_BRAND}, KEY_ROWID + "=" + rowId, null,
+                    KEY_NAME, KEY_TYPE, KEY_BRAND}, KEY_ROWID + "=" + rowId, null,
                     null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();

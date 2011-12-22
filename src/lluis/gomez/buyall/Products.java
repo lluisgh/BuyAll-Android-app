@@ -2,8 +2,7 @@ package lluis.gomez.buyall;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.view.View;
-import android.widget.ListView;
+import android.os.Bundle;
 import android.widget.SimpleCursorAdapter;
 
 public class Products extends ListTemplate {
@@ -11,37 +10,13 @@ public class Products extends ListTemplate {
     private static final int ACTIVITY_EDIT=1;
 
     
-    	
 	@Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-       
-        
-        /*final long productId = id;
-        
-        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
-
-		alertDialog.setTitle("Afegir producte");
-
-		
-		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Confirma", new DialogInterface.OnClickListener() {
-	           public void onClick(DialogInterface dialog, int id) {	
- 	        		   	Cursor producte = mDbHelper.fetchProduct(productId);
- 	        		   	startManagingCursor(producte);
- 	        		   	
- 	        		   	String brand = producte.getString(producte.getColumnIndex(BuyAllDbAdapter.KEY_BRAND));
- 	        		   	String product = producte.getString(producte.getColumnIndex("name"));
- 	        		   	mDbHelper.createListProduct(mListId, product, brand, "quantity", 0);
- 	        //   }	
-	           }
-		});
-		//alertDialog.setView(dialog);
-		alertDialog.show();
-		*/
-        edit(id);
-
-    }
-	
+	protected void onCreate(Bundle savedInstanceState) {
+		mDbHelper = new BuyAllDbAdapter(this);
+		super.onCreate(savedInstanceState);
+	}
+    
+   
 	@Override
     protected void fillData() {
     	Cursor productsCursor = mDbHelper.fetchAllProducts();
@@ -109,14 +84,22 @@ public class Products extends ListTemplate {
 	}
 
 	@Override
-	protected String getElementName() {
-		return "Producte";
+	protected String getOperation() {
+		return "Crea un producte";
 	}
 
 	@Override
 	protected void setContent() {
         setContentView(R.layout.products_list);
 	}
+
+
+	@Override
+	protected void onDestroy() {
+		 mDbHelper.close();
+		 super.onDestroy();
+	}
+    
     
    /* 
     @Override
@@ -154,6 +137,38 @@ public class Products extends ListTemplate {
 
     }
     */
+	
+	/* 	
+	@Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+       
+        
+        final long productId = id;
+        
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
+
+		alertDialog.setTitle("Afegir producte");
+
+		
+		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Confirma", new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {	
+ 	        		   	Cursor producte = mDbHelper.fetchProduct(productId);
+ 	        		   	startManagingCursor(producte);
+ 	        		   	
+ 	        		   	String brand = producte.getString(producte.getColumnIndex(BuyAllDbAdapter.KEY_BRAND));
+ 	        		   	String product = producte.getString(producte.getColumnIndex("name"));
+ 	        		   	mDbHelper.createListProduct(mListId, product, brand, "quantity", 0);
+ 	        //   }	
+	           }
+		});
+		//alertDialog.setView(dialog);
+		alertDialog.show();
+		
+       // edit(id);
+
+    }
+	*/
     
     
 }

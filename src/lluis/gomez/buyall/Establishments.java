@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,13 @@ import android.widget.TextView;
 public class Establishments extends ListTemplate {    
     private long mRowId;
    
+    
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		mDbHelper = new BuyAllDbAdapter(this);
+		super.onCreate(savedInstanceState);
+	}
+
 	@Override
 	protected void create() {
 		mRowId = mDbHelper.createEstablishment("");
@@ -68,8 +76,8 @@ public class Establishments extends ListTemplate {
 	}
 
 	@Override
-	protected String getElementName() {
-		return "Establiment";
+	protected String getOperation() {
+		return "Crea un establiment";
 	}
 
 	@Override
@@ -80,6 +88,12 @@ public class Establishments extends ListTemplate {
 		TextView title = (TextView) findViewById(R.id.title);
 		title.setText("Establiments");
 
+	}
+
+	@Override
+	protected void onDestroy() {
+		 mDbHelper.close();
+		 super.onDestroy();
 	}
 	
     

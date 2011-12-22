@@ -23,7 +23,6 @@ public abstract class ListTemplate extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContent();
-		mDbHelper = new BuyAllDbAdapter(this);
         fillData();
 		registerForContextMenu(getListView());
 	}
@@ -35,11 +34,11 @@ public abstract class ListTemplate extends ListActivity {
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.add(0, INSERT_ID, 0, "Crea " + getElementName());
+        menu.add(0, INSERT_ID, 0, getOperation());
         return true;
     }
 	
-	protected abstract String getElementName();
+	protected abstract String getOperation();
 	
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
@@ -86,11 +85,8 @@ public abstract class ListTemplate extends ListActivity {
 
     protected abstract void edit(long id);
     
-	 @Override
-	 protected void onDestroy() {
-		 mDbHelper.close();
-		 super.onDestroy();
-	 }
-
-	
+	/*
+    @Override
+	protected abstract void onDestroy();
+	*/
 }

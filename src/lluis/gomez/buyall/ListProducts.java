@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
@@ -42,6 +43,7 @@ public class ListProducts extends ListTemplate {
                                     : null;
         }
         
+		mDbHelper = new BuyAllDbAdapter(this);
 		super.onCreate(savedInstanceState);
     }
     
@@ -66,15 +68,8 @@ public class ListProducts extends ListTemplate {
     	mDateText.setText(mDate);
     	    	
     }
-  /*  
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-       // ++count; // = count + 1; 
-        menu.add(0, INSERT_ID, 0, "Afegeix productes");
-        return true;
-    }
-    */
+   
+    
 
     private void changeQuantity(long id) {
     	 final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
@@ -141,13 +136,24 @@ public class ListProducts extends ListTemplate {
 
 
 	@Override
-	protected String getElementName() {
-		return "Producte";
+	protected String getOperation() {
+		return "Afegeix un producte";
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		// TODO Demanar quantity, afegir a la taula ListProducts i tornar a la pantalla previa fent un fillData o similar.
 	}
 
 	@Override
 	protected void setContent() {
         setContentView(R.layout.list_view);		
+	}
+
+	@Override
+	protected void onDestroy() {
+		 mDbHelper.close();
+		 super.onDestroy();
 	}
 
     
