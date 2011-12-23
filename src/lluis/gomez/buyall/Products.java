@@ -23,7 +23,6 @@ public class Products extends ListTemplate {
     	Cursor productsCursor = mDbHelper.fetchAllProducts();
     	startManagingCursor(productsCursor);
     	
-    	//String dateAux = BuyAllDbAdapter.KEY_DAY + '/' + BuyAllDbAdapter.KEY_MONTH + Á + BuyAllDbAdapter.KEY_YEAR;
     	String[] from = new String[]{BuyAllDbAdapter.KEY_NAME, BuyAllDbAdapter.KEY_BRAND, BuyAllDbAdapter.KEY_TYPE};
     	
     	int[] to = new int[]{R.id.text1, R.id.text2, R.id.text3};

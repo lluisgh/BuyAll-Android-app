@@ -43,6 +43,7 @@ public class ProductEdit extends Activity {
 		
 		mTypeSpinner = (Spinner) findViewById(R.id.spinner1);
 		mNameText = (EditText) findViewById(R.id.editText1);
+		mNameText.setError("Has d'introduir un nom");
 		mBrandText = (EditText) findViewById(R.id.editText2);
 
 		Button createType = (Button) findViewById(R.id.createType);

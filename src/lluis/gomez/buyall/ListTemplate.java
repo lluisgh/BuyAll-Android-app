@@ -129,21 +129,24 @@ public abstract class ListTemplate extends ListActivity {
 
 		Context mContext = getApplicationContext();
 		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-		final View dialog = inflater.inflate(R.layout.new_dialog,
+		final View dialogus = inflater.inflate(R.layout.new_dialog,
 		                               (ViewGroup) findViewById(R.id.layout_root));
 
 		alertDialog.setTitle("Edita tipus");
-		TextView text = (TextView) dialog.findViewById(R.id.text);
+		TextView text = (TextView) dialogus.findViewById(R.id.text);
 		text.setText("Nom");
-		final EditText edText = (EditText) dialog.findViewById(R.id.editText1);
-		edText.setText(cursor.getString(cursor.getColumnIndex(BuyAllDbAdapter.KEY_NAME)));
-		
+		final EditText edText = (EditText) dialogus.findViewById(R.id.editText1);
+		edText.append(cursor.getString(cursor.getColumnIndex(BuyAllDbAdapter.KEY_NAME)));
+		if (edText.getText().toString().length() <= 0) edText.setError("Has d'introduir un nom");
 		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Confirma", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
- 	        	   if (edText.length() <= 0) edText.setError("Has d'introduir un nom.");
+ 	        	   if (edText.getText().toString().length() > 0) {
+ 	        		  update(edText.getText().toString());
+	        		  fillData();
+ 	        	   }
  	        	   else {
- 	        		   update(edText.getText().toString());
- 	        		   fillData();
+  	        		  update(edText.getText().toString());
+  	        		  edit();
  	        	   }
 	           }
 		});
@@ -153,12 +156,7 @@ public abstract class ListTemplate extends ListActivity {
 	        	  delete();
 	           }
 		});
-		alertDialog.setView(dialog);
+		alertDialog.setView(dialogus);
 		alertDialog.show();		
     }
-    
-	/*
-    @Override
-	protected abstract void onDestroy();
-	*/
 }
