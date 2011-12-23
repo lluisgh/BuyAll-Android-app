@@ -264,11 +264,12 @@ public class BuyAllDbAdapter {
 	
 	/**
 	 * Retorna un cursor sobre els productes (id i quantitat) presents a la llista listId
-	 * @param listId id de la llista
+	 * @param mRowId id de la llista
 	 * @return cursor sobre els productes de la llista listId
 	 */
-	public Cursor fetchProductsOf(String listId) {
-		return mDb.query(DATABASE_TABLE_LIST_PRODUCT, new String[] {KEY_PRODUCT, KEY_QUANTITY, KEY_BOUGHT}, KEY_LIST + "=" + listId, null, null, null, null);
+	public Cursor fetchProductsOf(long mListId) {
+		return mDb.rawQuery("SELECT list_product._id, products.name, products.brand, products.type, list_product.quantity, list_product.bought FROM products INNER JOIN list_product ON products._id=list_product.product_id WHERE list_product.list_id=" + mListId, null);
+		//return mDb.query(DATABASE_TABLE_LIST_PRODUCT, new String[] {KEY_PRODUCT, KEY_QUANTITY, KEY_BOUGHT}, KEY_LIST + "=" + mRowId, null, null, null, null);
 	}
 	
 	public Cursor fetchList(long rowId) throws SQLException {
@@ -383,10 +384,8 @@ public class BuyAllDbAdapter {
         return mDb.update(DATABASE_TABLE_LISTS, args, KEY_ROWID + "=" + rowId, null) > 0;
 	}
 	
-	public boolean updateListProduct(long rowId, long listId, String productId, String quantity, Integer bought) {
+	public boolean updateListProduct(long rowId, String quantity, Integer bought) {
 		ContentValues args = new ContentValues();
-		args.put(KEY_LIST, listId);
-		args.put(KEY_PRODUCT, productId);
 		args.put(KEY_QUANTITY, quantity);
 		args.put(KEY_BOUGHT, bought);
 		

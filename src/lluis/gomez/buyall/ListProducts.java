@@ -34,11 +34,11 @@ public class ListProducts extends ListTemplate {
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
-		mRowId = (savedInstanceState == null) ? null :
+		mListId = (savedInstanceState == null) ? null :
             (Long) savedInstanceState.getSerializable(BuyAllDbAdapter.KEY_ROWID);
-        if (mRowId == null) {
+        if (mListId == null) {
             Bundle extras = getIntent().getExtras();
-            mRowId = (extras != null) ? extras.getLong(BuyAllDbAdapter.KEY_ROWID)
+            mListId = (extras != null) ? extras.getLong(BuyAllDbAdapter.KEY_ROWID)
                                     : null;
         }
         
@@ -48,16 +48,16 @@ public class ListProducts extends ListTemplate {
     
     @Override
     protected void fillData() {
-    	Cursor c = mDbHelper.fetchListProduct(mRowId);
+    	Cursor c = mDbHelper.fetchProductsOf(mListId);
     	startManagingCursor(c);
     	    	
-    	String[] from = new String[] {BuyAllDbAdapter.KEY_PRODUCT, BuyAllDbAdapter.KEY_BRAND};
-    	int[] to = new int[] {R.id.name, R.id.text1};
+    	String[] from = new String[] {BuyAllDbAdapter.KEY_NAME, BuyAllDbAdapter.KEY_BRAND, BuyAllDbAdapter.KEY_BOUGHT};
+    	int[] to = new int[] {R.id.name, R.id.text1, R.id.checkBox1};
     	SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.view_product_row, c, from, to);
     	setListAdapter(adapter);
     	
     	
-    	Cursor c2 = mDbHelper.fetchList(mRowId);
+    	Cursor c2 = mDbHelper.fetchList(mListId);
     	startManagingCursor(c2);
     	mEstablishment = c2.getString(c2.getColumnIndex("establishment"));
     	mDate = c2.getString(c2.getColumnIndex("date"));
@@ -95,14 +95,12 @@ public class ListProducts extends ListTemplate {
   	        	    * probably falla
   	        	    */
   	        	   else {
-  	        		   Cursor c = mDbHelper.fetchListProduct(id);
+  	        		   Cursor c = mDbHelper.fetchListProduct(mRowId);
   	        		 	startManagingCursor(c);
-  	        	    	String product = c.getString(c.getColumnIndex(BuyAllDbAdapter.KEY_PRODUCT));
-  	        	    	String brand = c.getString(c.getColumnIndex(BuyAllDbAdapter.KEY_BRAND));
   	        	    	Integer bought = c.getInt(c.getColumnIndex(BuyAllDbAdapter.KEY_BOUGHT));
   	        		   	String quantity = edText.getText().toString(); 
   	        		   	
-  	        		   	mDbHelper.updateListProduct(mRowId, mListId, product, brand, quantity, bought);
+  	        		   	mDbHelper.updateListProduct(mRowId, quantity, bought);
   	        		   	
   	        		   	fillData();
   	        	   }
@@ -120,10 +118,11 @@ public class ListProducts extends ListTemplate {
 	}
 	*/
 
+    //AQUESTA FUNCIî SERË LA QUE CRIDARË A ADD_PRODUCTS QUE MOSTRARË LA LLISTA DE PRODUCTES I RETORNARË EL PRODUCTE ESCOLLIT I LA QUANTITAT. LLAVORS ES CREARË UNA FILA LIST_PRODUCT
 	@Override
 	protected void create() {
-    	Intent i = new Intent(this, Products.class);
-        i.putExtra(BuyAllDbAdapter.KEY_ROWID, mRowId);
+    	Intent i = new Intent(this, ProductsToAdd.class);
+        i.putExtra(BuyAllDbAdapter.KEY_LIST, mListId);
         startActivity(i);		
 	}
 

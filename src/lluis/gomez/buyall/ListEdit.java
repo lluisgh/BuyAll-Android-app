@@ -86,6 +86,8 @@ public class ListEdit extends Activity {
         mYear = mDatePicker.getYear();
         mMonth = mDatePicker.getMonth();
         mDay = mDatePicker.getDayOfMonth();
+		mDateText = Integer.toString(mDay) + '/' + Integer.toString(mMonth + 1) + '/' + Integer.toString(mYear);	
+
         mEstablishment = null;
         
         /**
