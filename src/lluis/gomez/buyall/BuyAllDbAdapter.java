@@ -52,7 +52,7 @@ public class BuyAllDbAdapter {
 	 */
 	private static final String DATABASE_CREATE_LIST_PRODUCT = 
 		"create table list_product (_id integer primary key autoincrement, "
-		+ "list_id integer not null, product_id integer not null, brand text, quantity text, bought integer)";
+		+ "list_id integer not null, product_id integer not null, quantity text, bought integer)";
 
 	
 	private static final String DATABASE_NAME = "data";
@@ -203,11 +203,10 @@ public class BuyAllDbAdapter {
 	 * @param quantity quantitat (p.e. 5kg) del producte productId a la llista listId
 	 * @return rowId o -1 si falla
 	 */
-	public long createListProduct(long listId, String product, String brand, String quantity, Integer bought) {
+	public long createListProduct(long listId, long productId, String quantity, Integer bought) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(KEY_LIST, listId);
-		initialValues.put(KEY_PRODUCT, product);
-		initialValues.put(KEY_BRAND, brand);
+		initialValues.put(KEY_PRODUCT, productId);
 		initialValues.put(KEY_QUANTITY, quantity);
 		initialValues.put(KEY_BOUGHT, bought);
 		
@@ -269,7 +268,7 @@ public class BuyAllDbAdapter {
 	 * @return cursor sobre els productes de la llista listId
 	 */
 	public Cursor fetchProductsOf(String listId) {
-		return mDb.query(DATABASE_TABLE_LIST_PRODUCT, new String[] {KEY_PRODUCT, KEY_BRAND, KEY_TYPE, KEY_QUANTITY, KEY_BOUGHT}, KEY_LIST + "=" + listId, null, null, null, null);
+		return mDb.query(DATABASE_TABLE_LIST_PRODUCT, new String[] {KEY_PRODUCT, KEY_QUANTITY, KEY_BOUGHT}, KEY_LIST + "=" + listId, null, null, null, null);
 	}
 	
 	public Cursor fetchList(long rowId) throws SQLException {
@@ -328,7 +327,7 @@ public class BuyAllDbAdapter {
 		Cursor mCursor =
 
             mDb.query(true, DATABASE_TABLE_LIST_PRODUCT, new String[] {KEY_ROWID,
-                    KEY_LIST, KEY_PRODUCT, KEY_BRAND, KEY_QUANTITY, KEY_BOUGHT}, KEY_ROWID + "=" + rowId, null,
+                    KEY_LIST, KEY_PRODUCT, KEY_QUANTITY, KEY_BOUGHT}, KEY_ROWID + "=" + rowId, null,
                     null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -384,11 +383,10 @@ public class BuyAllDbAdapter {
         return mDb.update(DATABASE_TABLE_LISTS, args, KEY_ROWID + "=" + rowId, null) > 0;
 	}
 	
-	public boolean updateListProduct(long rowId, long listId, String product, String brand, String quantity, Integer bought) {
+	public boolean updateListProduct(long rowId, long listId, String productId, String quantity, Integer bought) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_LIST, listId);
-		args.put(KEY_PRODUCT, product);
-		args.put(KEY_BRAND, brand);
+		args.put(KEY_PRODUCT, productId);
 		args.put(KEY_QUANTITY, quantity);
 		args.put(KEY_BOUGHT, bought);
 		
