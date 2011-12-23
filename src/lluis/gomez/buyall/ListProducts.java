@@ -13,14 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class ListProducts extends ListTemplate {
 
     private static final int EDIT_ID = Menu.FIRST + 1;
 
-    private BuyAllDbAdapter mDbHelper;
     
 	private Long mListId;
     private String mEstablishment;
@@ -28,7 +27,7 @@ public class ListProducts extends ListTemplate {
 
     private TextView mTitle;
     private TextView mDateText;
-    private CheckBox mCheckBox;
+   // private CheckBox mCheckBox;
 
 
  //   private static final int INSERT_ID = Menu.FIRST;
@@ -80,9 +79,9 @@ public class ListProducts extends ListTemplate {
     	startManagingCursor(c);
     	//TODO no funcionava aixo boolean bought = c.getInt(c.getColumnIndex(BuyAllDbAdapter.KEY_BOUGHT)) == 1;
     	
-    	String[] from = new String[] {BuyAllDbAdapter.KEY_NAME, BuyAllDbAdapter.KEY_BRAND, BuyAllDbAdapter.KEY_QUANTITY};
-    	int[] to = new int[] {R.id.name, R.id.brand, R.id.quantity};
-    	SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.view_product_row, c, from, to);
+    	//String[] from = new String[] {BuyAllDbAdapter.KEY_NAME, BuyAllDbAdapter.KEY_BRAND, BuyAllDbAdapter.KEY_QUANTITY, BuyAllDbAdapter.KEY_BOUGHT};
+    	//int[] to = new int[] {R.id.name, R.id.brand, R.id.quantity};
+    	CheckListAdapter adapter = new CheckListAdapter(this, c);
     	setListAdapter(adapter);
     	
     	
@@ -94,7 +93,7 @@ public class ListProducts extends ListTemplate {
     	mDateText = (TextView) findViewById(R.id.textView1);
     	mTitle.setText(mEstablishment);
     	mDateText.setText(mDate);
-    	mCheckBox = (CheckBox) findViewById(R.id.checkBox1);
+    	//mCheckBox = (CheckBox) findViewById(R.id.checkBox1);
     	//TODO mCheckBox.setChecked(bought);
     }
    
@@ -190,13 +189,26 @@ public class ListProducts extends ListTemplate {
 	}
 
 	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		CheckBox cb = (CheckBox) v.findViewById(R.id.checkBox1);
+		cb.setChecked(!cb.isChecked());
+		int bought;
+		if (cb.isChecked()) bought = 1;
+		else bought = 0;
+		Cursor c = mDbHelper.fetchListProduct(id);
+		int i = c.getCount();
+		int prova = c.getColumnIndex(BuyAllDbAdapter.KEY_QUANTITY);
+		mDbHelper.updateListProduct(mRowId, c.getString(c.getColumnIndexOrThrow(BuyAllDbAdapter.KEY_QUANTITY)), bought);
+	}
+
+	@Override
 	protected Cursor fetch() {
 		return null;
 	}
 
 	@Override
 	protected String getEditOperation() {
-		return null;
+		return "Canvia la quantitat";
 	}
 
 	@Override

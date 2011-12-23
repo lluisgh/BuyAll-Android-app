@@ -24,8 +24,7 @@ public abstract class ListTemplate extends ListActivity {
     private static final int DELETE_ID = Menu.FIRST + 1;
     private static final int EDIT_ID = Menu.FIRST + 2;
 
-    
-	protected BuyAllDbAdapter mDbHelper;
+    protected BuyAllDbAdapter mDbHelper;
 	protected Long mRowId;
 	
 	
@@ -62,6 +61,7 @@ public abstract class ListTemplate extends ListActivity {
     }
     
     protected abstract void create();
+    protected abstract String getEditOperation();
     
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
@@ -117,7 +117,6 @@ public abstract class ListTemplate extends ListActivity {
 	}
 	
 	protected abstract Cursor fetch();
-	protected abstract String getEditOperation();
 	protected abstract void update(String name);
 	
     protected void edit() {
@@ -132,7 +131,7 @@ public abstract class ListTemplate extends ListActivity {
 		final View dialogus = inflater.inflate(R.layout.new_dialog,
 		                               (ViewGroup) findViewById(R.id.layout_root));
 
-		alertDialog.setTitle("Edita tipus");
+		alertDialog.setTitle(getEditOperation());
 		TextView text = (TextView) dialogus.findViewById(R.id.text);
 		text.setText("Nom");
 		final EditText edText = (EditText) dialogus.findViewById(R.id.editText1);
