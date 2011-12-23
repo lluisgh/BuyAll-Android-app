@@ -86,7 +86,7 @@ public class ListEdit extends Activity {
         mYear = mDatePicker.getYear();
         mMonth = mDatePicker.getMonth();
         mDay = mDatePicker.getDayOfMonth();
-		mDateText = Integer.toString(mDay) + '/' + Integer.toString(mMonth + 1) + '/' + Integer.toString(mYear);	
+		//mDateText = Integer.toString(mDay) + '/' + Integer.toString(mMonth + 1) + '/' + Integer.toString(mYear);	
 
         mEstablishment = null;
         
@@ -102,6 +102,10 @@ public class ListEdit extends Activity {
 	}
 	
 	public void createList() {
+		mDay = mDatePicker.getDayOfMonth();
+		mMonth = mDatePicker.getMonth();
+		mYear = mDatePicker.getYear();
+		mDateText = Integer.toString(mDay) + '/' + Integer.toString(mMonth + 1) + '/' + Integer.toString(mYear);	
 		if (mRowId == null) {
 			long id = mDbHelper.createList(mEstablishment, mDay, mMonth, mYear, mDateText);
 			if (id > 0) mRowId = id;

@@ -1,14 +1,7 @@
 package lluis.gomez.buyall;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
@@ -24,38 +17,6 @@ public class Establishments extends ListTemplate {
 	protected void create() {
 		mRowId = mDbHelper.createEstablishment("");
     	edit();	
-	}
-
-	@Override
-	protected void edit() {
-		final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
-		
-    	Cursor cursor = mDbHelper.fetchEstablishment(mRowId);
-    	startManagingCursor(cursor);
-    	
-
-		Context mContext = getApplicationContext();
-		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-		final View dialog = inflater.inflate(R.layout.new_dialog,
-		                               (ViewGroup) findViewById(R.id.layout_root));
-
-		alertDialog.setTitle("Edita establiment");
-		TextView text = (TextView) dialog.findViewById(R.id.text);
-		text.setText("Nom");
-		final EditText edText = (EditText) dialog.findViewById(R.id.editText1);
-		edText.setText(cursor.getString(cursor.getColumnIndex(BuyAllDbAdapter.KEY_NAME)));
-		
-		alertDialog.setButton("Confirma", new DialogInterface.OnClickListener() {
-	           public void onClick(DialogInterface dialog, int id) {
- 	        	   if (edText.length() <= 0) edText.setError("Has d'introduir un nom.");
- 	        	   else {
- 	        		   mDbHelper.updateEstablishment(mRowId, edText.getText().toString());
- 	        		   fillData();
- 	        	   }
-	           }
-		});
-		alertDialog.setView(dialog);
-		alertDialog.show();		
 	}
 
 	@Override
@@ -100,6 +61,21 @@ public class Establishments extends ListTemplate {
 	@Override
 	protected String getDeleteOperation() {
 		return "Segur que vols esborrar aquest establiment?";
+	}
+
+	@Override
+	protected Cursor fetch() {
+		return mDbHelper.fetchEstablishment(mRowId);
+	}
+
+	@Override
+	protected String getEditOperation() {
+		return "Edita l'establiment";
+	}
+
+	@Override
+	protected void update(String name) {
+		mDbHelper.updateEstablishment(mRowId, name);
 	}
 	
     

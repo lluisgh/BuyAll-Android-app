@@ -192,5 +192,23 @@ public class ListProducts extends ListTemplate {
 		return "Segur que vols esborrar aquest product de la llista?";
 	}
 
+	@Override
+	protected Cursor fetch() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String getEditOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void update(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
     
 }

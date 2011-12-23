@@ -43,7 +43,7 @@ public class ProductsToAdd extends Products {
 		final View dialog = inflater.inflate(R.layout.new_dialog,
 		                               (ViewGroup) findViewById(R.id.layout_root));
 
-		alertDialog.setTitle("Escull la quantitat");
+		alertDialog.setTitle("Introdueix la quantitat");
 		TextView text = (TextView) dialog.findViewById(R.id.text);
 		text.setText("Quantitat");
 		final EditText edText = (EditText) dialog.findViewById(R.id.editText1);

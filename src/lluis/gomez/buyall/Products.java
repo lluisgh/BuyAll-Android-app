@@ -45,43 +45,6 @@ public class Products extends ListTemplate {
 		Intent i = new Intent(this, ProductEdit.class);
         i.putExtra(BuyAllDbAdapter.KEY_ROWID, mRowId);
         startActivityForResult(i, ACTIVITY_EDIT);
-    
-		/*
-    	 * FrameLayout f1 = (FrameLayout) findViewById(R.android.id.custom);
-    	 * f1.addView(myView, new LayoutParams(MATCH_PARENT, WRAP_CONTENT));
-    	 * 
-    	 */
-    	
-/*    	
-    	final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
-
-    	Cursor cursor = mDbHelper.fetchProduct(id);
-    	startManagingCursor(cursor);    	
-    	
-		Context mContext = getApplicationContext();
-		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-		final View dialog = inflater.inflate(R.layout.new_dialog,
-		                               (ViewGroup) findViewById(R.id.layout_root));
-
-		alertDialog.setTitle("Edita producte");
-		TextView text = (TextView) dialog.findViewById(R.id.text);
-		text.setText("Nom");
-		final EditText name = (EditText) dialog.findViewById(R.id.editText1);
-		name.setText(cursor.getString(cursor.getColumnIndex(BuyAllDbAdapter.KEY_NAME)));
-		final EditText brand = (EditText) dialog.findViewById(R.id.editText2);
-		
-		final EditText type = (EditText) dialog.findViewById(R.id.editText3);
-		
-		
-		alertDialog.setButton("Confirma", new DialogInterface.OnClickListener() {
-	           public void onClick(DialogInterface dialog, int id) {
- 	        	   if (name.length() <= 0) name.setError("Has d'introduir un nom.");
- 	        	   else mDbHelper.updateEstablishment(id, name.getText().toString());
-	           }
-		});
-		alertDialog.setView(dialog);
-		alertDialog.show();		
-	*/
 	}
 
 	@Override
@@ -112,76 +75,28 @@ public class Products extends ListTemplate {
 	protected String getDeleteOperation() {
 		return "Segur que vols esborrar aquest producte?";
 	}
-    
-    
-   /* 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        
-        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
 
 
-		Context mContext = getApplicationContext();
-		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-		final View dialog = inflater.inflate(R.layout.new_dialog,
-		                               (ViewGroup) findViewById(R.id.layout_root));
-
-		alertDialog.setTitle("Introdueix la quantitat");
-		TextView text = (TextView) dialog.findViewById(R.id.text);
-		text.setText("Quantitat");
-		final EditText edText = (EditText) dialog.findViewById(R.id.editText1);
-		
-		alertDialog.setButton("Confirma", new DialogInterface.OnClickListener() {
-	           public void onClick(DialogInterface dialog, int id) {
- 	        	   if (edText.length() <= 0) {
- 	        		   edText.setError("Has d'introduir un nom.");
- 	        	   }
- 	        	   else {
- 	        		   	mEstablishment = edText.getText().toString(); 
- 	        		   	mDbHelper.createEstablishment(mEstablishment);
-
- 			       		populateFields();
- 	        	   }
-	           }
-		});
-		alertDialog.setView(dialog);
-		alertDialog.show();
-
-    }
-    */
-	
-	/* 	
 	@Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-       
-        
-        final long productId = id;
-        
-        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
+	protected Cursor fetch() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		alertDialog.setTitle("Afegir producte");
 
+	@Override
+	protected String getEditOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	protected void update(String name) {
+		// TODO Auto-generated method stub
 		
-		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Confirma", new DialogInterface.OnClickListener() {
-	           public void onClick(DialogInterface dialog, int id) {	
- 	        		   	Cursor producte = mDbHelper.fetchProduct(productId);
- 	        		   	startManagingCursor(producte);
- 	        		   	
- 	        		   	String brand = producte.getString(producte.getColumnIndex(BuyAllDbAdapter.KEY_BRAND));
- 	        		   	String product = producte.getString(producte.getColumnIndex("name"));
- 	        		   	mDbHelper.createListProduct(mListId, product, brand, "quantity", 0);
- 	        //   }	
-	           }
-		});
-		//alertDialog.setView(dialog);
-		alertDialog.show();
-		
-       // edit(id);
-
-    }
-	*/
+	}
+   
     
     
 }
