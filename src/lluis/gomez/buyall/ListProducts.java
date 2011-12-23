@@ -11,9 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class ListProducts extends ListTemplate {
@@ -128,8 +126,9 @@ public class ListProducts extends ListTemplate {
   	        		 	startManagingCursor(c);
   	        	    	Integer bought = c.getInt(c.getColumnIndex(BuyAllDbAdapter.KEY_BOUGHT));
   	        		   	String quantity = edText.getText().toString(); 
-  	        		   	
-  	        		   	mDbHelper.updateListProduct(mRowId, quantity, bought);
+  	        		   	Long list_id = c.getLong(c.getColumnIndex(BuyAllDbAdapter.KEY_LIST));
+  	        		   	Long product_id = c.getLong(c.getColumnIndex(BuyAllDbAdapter.KEY_PRODUCT));
+  	        		   	mDbHelper.updateListProduct(mRowId, list_id, product_id, quantity, bought);
   	        		   	
   	        		   	fillData();
   	        	   }
@@ -187,7 +186,7 @@ public class ListProducts extends ListTemplate {
 	protected String getDeleteOperation() {
 		return "Segur que vols esborrar aquest product de la llista?";
 	}
-
+/*
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		CheckBox cb = (CheckBox) v.findViewById(R.id.checkBox1);
@@ -198,9 +197,15 @@ public class ListProducts extends ListTemplate {
 		Cursor c = mDbHelper.fetchListProduct(id);
 		int i = c.getCount();
 		int prova = c.getColumnIndex(BuyAllDbAdapter.KEY_QUANTITY);
-		mDbHelper.updateListProduct(mRowId, c.getString(c.getColumnIndexOrThrow(BuyAllDbAdapter.KEY_QUANTITY)), bought);
+		String guai = c.getString(c.getColumnIndexOrThrow(BuyAllDbAdapter.KEY_QUANTITY));
+		String quantity = c.getString(c.getColumnIndex(BuyAllDbAdapter.KEY_QUANTITY)); 
+	   	Long list_id = c.getLong(c.getColumnIndex(BuyAllDbAdapter.KEY_LIST));
+	   	Long product_id = c.getLong(c.getColumnIndex(BuyAllDbAdapter.KEY_PRODUCT));
+	   	c.close(); 
+	   	//mDbHelper = new BuyAllDbAdapter(this);
+	   	mDbHelper.updateListProduct(mRowId, 1, 1, "rpvaaa", bought);	
 	}
-
+	*/
 	@Override
 	protected Cursor fetch() {
 		return null;

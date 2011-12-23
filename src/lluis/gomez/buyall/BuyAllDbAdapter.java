@@ -382,8 +382,10 @@ public class BuyAllDbAdapter {
         return mDb.update(DATABASE_TABLE_LISTS, args, KEY_ROWID + "=" + rowId, null) > 0;
 	}
 	
-	public boolean updateListProduct(long rowId, String quantity, Integer bought) {
+	public boolean updateListProduct(long rowId, long list_id, long product_id, String quantity, Integer bought) {
 		ContentValues args = new ContentValues();
+		args.put(KEY_LIST, list_id);
+		args.put(KEY_PRODUCT, product_id);
 		args.put(KEY_QUANTITY, quantity);
 		args.put(KEY_BOUGHT, bought);
 		
