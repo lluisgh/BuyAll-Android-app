@@ -111,6 +111,7 @@ public class ListEdit extends Activity {
 		}
 		Intent i = new Intent(this, ListProducts.class);
         i.putExtra(BuyAllDbAdapter.KEY_ROWID, mRowId);
+		finish();
         startActivity(i);
 	}
 	

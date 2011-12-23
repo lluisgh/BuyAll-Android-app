@@ -61,7 +61,8 @@ public class ProductsToAdd extends Products {
  	        	   else {
  	        		   	String quantity = edText.getText().toString();  	        		   	
  	        		   	mDbHelper.createListProduct(mListId, mRowId, quantity, 0); 	        		   	
- 	        		   	fillData();
+ 	        		   	//fillData();
+ 	        		   	finish();
  	        	   }
 	           }
 		});

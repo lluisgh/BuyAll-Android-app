@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -16,8 +18,9 @@ import android.widget.TextView;
 
 public class ListProducts extends ListTemplate {
 
+    private static final int EDIT_ID = Menu.FIRST + 1;
+
     private BuyAllDbAdapter mDbHelper;
-	
     
 	private Long mListId;
     private String mEstablishment;
@@ -44,6 +47,31 @@ public class ListProducts extends ListTemplate {
         
 		mDbHelper = new BuyAllDbAdapter(this);
 		super.onCreate(savedInstanceState);
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.add(0, EDIT_ID, 0, "Edita la llista");
+        return true;
+    }
+	
+	
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        switch(item.getItemId()) {
+            case EDIT_ID:
+                editList();
+                return true;
+        }        
+        return super.onMenuItemSelected(featureId, item);
+
+    }
+    
+    private void editList() {
+    	Intent i = new Intent(this, ListEdit.class);
+        i.putExtra(BuyAllDbAdapter.KEY_ROWID, mListId);
+        startActivity(i);
     }
     
     @Override
