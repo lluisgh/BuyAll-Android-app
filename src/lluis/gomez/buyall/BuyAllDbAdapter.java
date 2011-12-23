@@ -21,7 +21,7 @@ public class BuyAllDbAdapter {
     public static final String KEY_TYPE = "type";
     public static final String KEY_ESTABLISHMENT = "establishment";
     public static final String KEY_LIST = "list_id";
-    public static final String KEY_PRODUCT = "product";
+    public static final String KEY_PRODUCT = "product_id";
     
     
     private static final String TAG = "BuyAllDbAdapter";
@@ -52,7 +52,7 @@ public class BuyAllDbAdapter {
 	 */
 	private static final String DATABASE_CREATE_LIST_PRODUCT = 
 		"create table list_product (_id integer primary key autoincrement, "
-		+ "list_id integer not null, product text, brand text, quantity text, bought integer)";
+		+ "list_id integer not null, product_id integer not null, brand text, quantity text, bought integer)";
 
 	
 	private static final String DATABASE_NAME = "data";

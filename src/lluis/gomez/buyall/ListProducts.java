@@ -79,7 +79,7 @@ public class ListProducts extends ListTemplate {
  		final View dialog = inflater.inflate(R.layout.new_dialog,
  		                               (ViewGroup) findViewById(R.id.layout_root));
 
- 		alertDialog.setTitle("Canvia la quantitat");
+ 		alertDialog.setTitle("Escull la quantitat");
  		TextView text = (TextView) dialog.findViewById(R.id.text);
  		text.setText("Quantitat");
  		final EditText edText = (EditText) dialog.findViewById(R.id.editText1);
