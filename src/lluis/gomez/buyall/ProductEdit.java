@@ -114,7 +114,7 @@ public class ProductEdit extends Activity {
 		text.setText("Nom");
 		final EditText edText = (EditText) dialog.findViewById(R.id.editText1);
 		
-		alertDialog.setButton("Confirma", new DialogInterface.OnClickListener() {
+		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Confirma", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
  	        	   if (edText.length() > 0) {
  	        		   	mType = edText.getText().toString(); 
@@ -122,6 +122,12 @@ public class ProductEdit extends Activity {
  			       		populateFields();
  	        	   }
 	           }
+		});
+		
+		alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancelála", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {}
+			
 		});
 		alertDialog.setView(dialog);
 		alertDialog.show();

@@ -62,7 +62,7 @@ public class BuyAllDbAdapter {
     private static final String DATABASE_TABLE_LISTS = "lists";
     private static final String DATABASE_TABLE_LIST_PRODUCT = "list_product";
 
-    private static final int DATABASE_VERSION = 1; //1????????
+    private static final int DATABASE_VERSION = 1;
 	private final Context mCtx;
 	
 	private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -79,8 +79,6 @@ public class BuyAllDbAdapter {
             db.execSQL(DATABASE_CREATE_PRODUCTS);
             db.execSQL(DATABASE_CREATE_LISTS);
             db.execSQL(DATABASE_CREATE_LIST_PRODUCT);
-           //db.execSQL("insert into establishments values ('carrefour')");
-          //  initializeEstablishments(db);
         }
 
         @Override

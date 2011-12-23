@@ -78,23 +78,18 @@ public class Products extends ListTemplate {
 
 	@Override
 	protected Cursor fetch() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 
 	@Override
 	protected String getEditOperation() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 
 	@Override
-	protected void update(String name) {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void update(String name) {}
    
     
     

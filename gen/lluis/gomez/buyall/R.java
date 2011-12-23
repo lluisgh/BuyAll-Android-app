@@ -18,8 +18,9 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout01=0x7f06000b;
+        public static final int brand=0x7f060024;
         public static final int brandLabel=0x7f060018;
-        public static final int checkBox1=0x7f060024;
+        public static final int checkBox1=0x7f060026;
         public static final int confirmButton=0x7f060013;
         public static final int createEstablishmentButton=0x7f06000a;
         public static final int createType=0x7f06001e;
@@ -39,6 +40,7 @@ public final class R {
         public static final int linearLayout7=0x7f060017;
         public static final int linearLayout9=0x7f060011;
         public static final int name=0x7f060023;
+        public static final int quantity=0x7f060025;
         public static final int spinner1=0x7f06001c;
         public static final int text=0x7f060015;
         public static final int text1=0x7f060001;

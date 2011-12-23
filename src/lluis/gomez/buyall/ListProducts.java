@@ -11,8 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
@@ -28,7 +28,7 @@ public class ListProducts extends ListTemplate {
 
     private TextView mTitle;
     private TextView mDateText;
-  //  private CheckBox mCheckBox;
+    private CheckBox mCheckBox;
 
 
  //   private static final int INSERT_ID = Menu.FIRST;
@@ -78,9 +78,10 @@ public class ListProducts extends ListTemplate {
     protected void fillData() {
     	Cursor c = mDbHelper.fetchProductsOf(mListId);
     	startManagingCursor(c);
-    	    	
-    	String[] from = new String[] {BuyAllDbAdapter.KEY_NAME, BuyAllDbAdapter.KEY_BRAND, BuyAllDbAdapter.KEY_BOUGHT};
-    	int[] to = new int[] {R.id.name, R.id.text1, R.id.checkBox1};
+    	//TODO no funcionava aixo boolean bought = c.getInt(c.getColumnIndex(BuyAllDbAdapter.KEY_BOUGHT)) == 1;
+    	
+    	String[] from = new String[] {BuyAllDbAdapter.KEY_NAME, BuyAllDbAdapter.KEY_BRAND, BuyAllDbAdapter.KEY_QUANTITY};
+    	int[] to = new int[] {R.id.name, R.id.brand, R.id.quantity};
     	SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.view_product_row, c, from, to);
     	setListAdapter(adapter);
     	
@@ -93,7 +94,8 @@ public class ListProducts extends ListTemplate {
     	mDateText = (TextView) findViewById(R.id.textView1);
     	mTitle.setText(mEstablishment);
     	mDateText.setText(mDate);
-    	    	
+    	mCheckBox = (CheckBox) findViewById(R.id.checkBox1);
+    	//TODO mCheckBox.setChecked(bought);
     }
    
     
@@ -146,7 +148,6 @@ public class ListProducts extends ListTemplate {
 	}
 	*/
 
-    //AQUESTA FUNCIî SERË LA QUE CRIDARË A ADD_PRODUCTS QUE MOSTRARË LA LLISTA DE PRODUCTES I RETORNARË EL PRODUCTE ESCOLLIT I LA QUANTITAT. LLAVORS ES CREARË UNA FILA LIST_PRODUCT
 	@Override
 	protected void create() {
     	Intent i = new Intent(this, ProductsToAdd.class);
@@ -167,19 +168,15 @@ public class ListProducts extends ListTemplate {
 	}
 
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Demanar quantity, afegir a la taula ListProducts i tornar a la pantalla previa fent un fillData o similar.
-	}
-
-	@Override
 	protected void setContent() {
         setContentView(R.layout.list_view);		
 	}
 
 	@Override
 	protected void onDestroy() {
-		 mDbHelper.close();
-		 super.onDestroy();
+		//TODO aqu’ guardarˆ les checkboxes
+		mDbHelper.close();
+		super.onDestroy();
 	}
 
 	@Override
@@ -194,21 +191,16 @@ public class ListProducts extends ListTemplate {
 
 	@Override
 	protected Cursor fetch() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected String getEditOperation() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected void update(String name) {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void update(String name) {}
 
     
 }

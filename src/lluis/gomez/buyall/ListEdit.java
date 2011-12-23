@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class ListEdit extends Activity {
@@ -52,7 +53,6 @@ public class ListEdit extends Activity {
 		 */
 		mEstablishmentSpinner = (Spinner) findViewById(R.id.establishment_spinner);
         mDatePicker = (DatePicker) findViewById(R.id.date_picker);
-						
 		mEstablishmentSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -98,14 +98,27 @@ public class ListEdit extends Activity {
 	
 	public void onClickButton(View v) {
 		if (v.getId() == R.id.createEstablishmentButton) createEstablishment();
-		else if (v.getId() == R.id.confirmButton) createList();
+		else if (v.getId() == R.id.confirmButton) {
+			if (!mEstablishment.equals("")) createList();
+			else {
+				Context context = getApplicationContext();
+				CharSequence text = "Has de triar un establiment";
+				int duration = Toast.LENGTH_LONG;
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
+			}
+		}
 	}
 	
 	public void createList() {
 		mDay = mDatePicker.getDayOfMonth();
 		mMonth = mDatePicker.getMonth();
 		mYear = mDatePicker.getYear();
-		mDateText = Integer.toString(mDay) + '/' + Integer.toString(mMonth + 1) + '/' + Integer.toString(mYear);	
+		mDateText = "";
+		if (mDay < 10) mDateText += "0";
+		mDateText += Integer.toString(mDay) + '/';
+		if (mMonth + 1 < 10) mDateText += '0';
+		mDateText += Integer.toString(mMonth + 1) + '/' + Integer.toString(mYear);	
 		if (mRowId == null) {
 			long id = mDbHelper.createList(mEstablishment, mDay, mMonth, mYear, mDateText);
 			if (id > 0) mRowId = id;
@@ -143,6 +156,11 @@ public class ListEdit extends Activity {
  			       		populateFields();
  	        	   }
 	           }
+		});
+		
+		alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancelála", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {}
 		});
 		alertDialog.setView(dialog);
 		alertDialog.show();
@@ -182,7 +200,10 @@ public class ListEdit extends Activity {
 			int index = mArray.indexOf(mEstablishment);
 			mEstablishmentSpinner.setSelection(index + 1);
 			
-			mDateText = Integer.toString(mDay) + '/' + Integer.toString(mMonth + 1) + '/' + Integer.toString(mYear);
+			if (mDay < 10) mDateText = "0";
+			mDateText += Integer.toString(mDay) + '/';
+			if (mMonth + 1 < 10) mDateText += '0';
+			mDateText += Integer.toString(mMonth + 1) + '/' + Integer.toString(mYear);
 			mDatePicker.updateDate(mYear, mMonth, mDay);//(mYear, mMonth, mDay, dateSetListener);
 		}
 		
@@ -217,7 +238,10 @@ public class ListEdit extends Activity {
 		mDay = mDatePicker.getDayOfMonth();
 		mMonth = mDatePicker.getMonth();
 		mYear = mDatePicker.getYear();
-		mDateText = Integer.toString(mDay) + '/' + Integer.toString(mMonth + 1) + '/' + Integer.toString(mYear);	
+		if (mDay < 10) mDateText = "0";
+		mDateText += Integer.toString(mDay) + '/';
+		if (mMonth + 1 < 10) mDateText += '0';
+		mDateText += Integer.toString(mMonth + 1) + '/' + Integer.toString(mYear);	
 	}
 	
 	
