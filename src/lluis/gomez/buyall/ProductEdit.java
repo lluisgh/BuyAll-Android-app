@@ -116,10 +116,7 @@ public class ProductEdit extends Activity {
 		
 		alertDialog.setButton("Confirma", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
- 	        	   if (edText.length() <= 0) {
- 	        		   edText.setError("Has d'introduir un nom.");
- 	        	   }
- 	        	   else {
+ 	        	   if (edText.length() > 0) {
  	        		   	mType = edText.getText().toString(); 
  	        		   	mDbHelper.createType(mType);
  			       		populateFields();

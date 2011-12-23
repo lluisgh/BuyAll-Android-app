@@ -133,13 +133,10 @@ public class ListEdit extends Activity {
 		TextView text = (TextView) dialog.findViewById(R.id.text);
 		text.setText("Nom");
 		final EditText edText = (EditText) dialog.findViewById(R.id.editText1);
-		
+		edText.setError("Has d'introduir un nom");
 		alertDialog.setButton("Confirma", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
- 	        	   if (edText.length() <= 0) {
- 	        		   edText.setError("Has d'introduir un nom.");
- 	        	   }
- 	        	   else {
+ 	        	   if (edText.length() > 0) {
  	        		   	mEstablishment = edText.getText().toString(); 
  	        		   	mDbHelper.createEstablishment(mEstablishment);
 
